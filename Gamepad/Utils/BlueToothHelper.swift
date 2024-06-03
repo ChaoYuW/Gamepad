@@ -5,7 +5,7 @@
 //  Created by chao on 2024/6/3.
 //
 
-
+//https://blog.csdn.net/weixin_43899955/article/details/134067199
 import UIKit
 import CoreBluetooth
 
@@ -119,6 +119,24 @@ class BlueToothHelper: NSObject {
         backConnectedBlock = block
     }
     
+    func createFrame(data: Data) -> Data {
+        let startByte: UInt8 = 0x01
+        let endByte: UInt8 = 0x04
+        let dataLength = UInt8(data.count)
+        var checksum: UInt8 = 0
+
+        for byte in data {
+            checksum ^= byte
+        }
+
+        var frame = Data([startByte, dataLength])
+        frame.append(data)
+        frame.append(checksum)
+        frame.append(endByte)
+
+        return frame
+    }
+    
 }
 
 //MARK: - Ble Delegate
@@ -130,7 +148,7 @@ extension BlueToothHelper:CBCentralManagerDelegate {
         if #available(iOS 10.0, *) {
             if central.state == CBManagerState.poweredOn {
                 print("powered on")
-                
+                // 蓝牙已启用，开始扫描设备
                 startScan()
             } else {
                 if central.state == CBManagerState.poweredOff {
@@ -160,6 +178,15 @@ extension BlueToothHelper:CBCentralManagerDelegate {
         if let backPeripheralsBlock = backPeripheralsBlock {
             backPeripheralsBlock(aPeArray)
         }
+        
+        // 找到目标设备后停止扫描并保存设备
+//        if peripheral.name == "Your Bluetooth Key Device Name" {
+//            centralManager?.stopScan()
+//            targetPeripheral = peripheral
+//            
+//            // 连接设备
+//            centralManager?.connect(targetPeripheral!, options: nil)
+//        }
     }
     
     // MARK: 连接外设成功，开始发现服务
