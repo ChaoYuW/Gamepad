@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AF24F0B2C0E135A0090E833 /* BleDataConver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF24F0A2C0E135A0090E833 /* BleDataConver.swift */; };
+		3AF24F0D2C0E16BB0090E833 /* BlueToothHelper+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF24F0C2C0E16BB0090E833 /* BlueToothHelper+Extension.swift */; };
+		3AF24F0F2C0E17720090E833 /* HandleProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF24F0E2C0E17720090E833 /* HandleProtocal.swift */; };
 		E537F0B52C0D4F52006BFFBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537F0B42C0D4F52006BFFBD /* AppDelegate.swift */; };
 		E537F0BE2C0D4F55006BFFBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E537F0BD2C0D4F55006BFFBD /* Assets.xcassets */; };
 		E537F0C12C0D4F55006BFFBD /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E537F0C02C0D4F55006BFFBD /* Base */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3AF24F0A2C0E135A0090E833 /* BleDataConver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleDataConver.swift; sourceTree = "<group>"; };
+		3AF24F0C2C0E16BB0090E833 /* BlueToothHelper+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueToothHelper+Extension.swift"; sourceTree = "<group>"; };
+		3AF24F0E2C0E17720090E833 /* HandleProtocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleProtocal.swift; sourceTree = "<group>"; };
 		E537F0B12C0D4F52006BFFBD /* Gamepad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gamepad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E537F0B42C0D4F52006BFFBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E537F0BD2C0D4F55006BFFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,7 +102,10 @@
 			isa = PBXGroup;
 			children = (
 				E565E2CB2C0DA41400E76B86 /* BlueToothHelper.swift */,
+				3AF24F0C2C0E16BB0090E833 /* BlueToothHelper+Extension.swift */,
+				3AF24F0A2C0E135A0090E833 /* BleDataConver.swift */,
 				E565E2D22C0DA90A00E76B86 /* CYConstants.swift */,
+				3AF24F0E2C0E17720090E833 /* HandleProtocal.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -190,9 +199,12 @@
 			files = (
 				E537F0B52C0D4F52006BFFBD /* AppDelegate.swift in Sources */,
 				E565E2CC2C0DA41400E76B86 /* BlueToothHelper.swift in Sources */,
+				3AF24F0B2C0E135A0090E833 /* BleDataConver.swift in Sources */,
+				3AF24F0D2C0E16BB0090E833 /* BlueToothHelper+Extension.swift in Sources */,
 				E565E2D32C0DA90A00E76B86 /* CYConstants.swift in Sources */,
 				E537F0CB2C0D53EA006BFFBD /* RootViewController.swift in Sources */,
 				E565E2D02C0DA50800E76B86 /* ScanListViewController.swift in Sources */,
+				3AF24F0F2C0E17720090E833 /* HandleProtocal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
