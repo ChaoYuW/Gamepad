@@ -17,6 +17,6 @@ struct HandleProtocal{
     static let BLE_RSP_DATA_LEN = 17
 }
 
-enum BLE_REQ : UInt8{
-    
-}
+//enum BLE_REQ : UInt8{
+//    
+//}

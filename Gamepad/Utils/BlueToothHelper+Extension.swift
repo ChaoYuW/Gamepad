@@ -9,10 +9,10 @@ extension BlueToothHelper{
     
     
     
-    func sendData(){
-        let type;
-        switch type
-        case 
-        
-    }
+//    func sendData(){
+//        let type;
+//        switch type
+//        case 
+//        
+//    }
 }

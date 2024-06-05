@@ -18,6 +18,10 @@
 		E565E2CC2C0DA41400E76B86 /* BlueToothHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E565E2CB2C0DA41400E76B86 /* BlueToothHelper.swift */; };
 		E565E2D02C0DA50800E76B86 /* ScanListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E565E2CE2C0DA50800E76B86 /* ScanListViewController.swift */; };
 		E565E2D32C0DA90A00E76B86 /* CYConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E565E2D22C0DA90A00E76B86 /* CYConstants.swift */; };
+		E57D0C322C10000800BCCE78 /* HandleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D0C312C10000800BCCE78 /* HandleViewController.swift */; };
+		E57D0C362C10006F00BCCE78 /* FCHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D0C352C10006F00BCCE78 /* FCHandleView.swift */; };
+		E57D0C382C102E7200BCCE78 /* HandleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D0C372C102E7200BCCE78 /* HandleItem.swift */; };
+		E57D0C3A2C10341600BCCE78 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D0C392C10341600BCCE78 /* ColorUtils.swift */; };
 		E5B232F62C0DB2F100DB9218 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5B232F52C0DB2F100DB9218 /* SnapKit */; };
 		E5B232F92C0DB30C00DB9218 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5B232F82C0DB30C00DB9218 /* Alamofire */; };
 /* End PBXBuildFile section */
@@ -35,6 +39,10 @@
 		E565E2CB2C0DA41400E76B86 /* BlueToothHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothHelper.swift; sourceTree = "<group>"; };
 		E565E2CE2C0DA50800E76B86 /* ScanListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanListViewController.swift; sourceTree = "<group>"; };
 		E565E2D22C0DA90A00E76B86 /* CYConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CYConstants.swift; sourceTree = "<group>"; };
+		E57D0C312C10000800BCCE78 /* HandleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleViewController.swift; sourceTree = "<group>"; };
+		E57D0C352C10006F00BCCE78 /* FCHandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCHandleView.swift; sourceTree = "<group>"; };
+		E57D0C372C102E7200BCCE78 /* HandleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleItem.swift; sourceTree = "<group>"; };
+		E57D0C392C10341600BCCE78 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +94,7 @@
 				E565E2CD2C0DA4BD00E76B86 /* New Group */,
 				E537F0CD2C0D5602006BFFBD /* Root */,
 				E565E2CE2C0DA50800E76B86 /* ScanListViewController.swift */,
+				E57D0C332C10001300BCCE78 /* Handle */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -106,6 +115,7 @@
 				3AF24F0A2C0E135A0090E833 /* BleDataConver.swift */,
 				E565E2D22C0DA90A00E76B86 /* CYConstants.swift */,
 				3AF24F0E2C0E17720090E833 /* HandleProtocal.swift */,
+				E57D0C392C10341600BCCE78 /* ColorUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -115,6 +125,24 @@
 			children = (
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		E57D0C332C10001300BCCE78 /* Handle */ = {
+			isa = PBXGroup;
+			children = (
+				E57D0C342C10003200BCCE78 /* View */,
+				E57D0C312C10000800BCCE78 /* HandleViewController.swift */,
+			);
+			path = Handle;
+			sourceTree = "<group>";
+		};
+		E57D0C342C10003200BCCE78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E57D0C352C10006F00BCCE78 /* FCHandleView.swift */,
+				E57D0C372C102E7200BCCE78 /* HandleItem.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,12 +226,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				E537F0B52C0D4F52006BFFBD /* AppDelegate.swift in Sources */,
+				E57D0C382C102E7200BCCE78 /* HandleItem.swift in Sources */,
 				E565E2CC2C0DA41400E76B86 /* BlueToothHelper.swift in Sources */,
+				E57D0C3A2C10341600BCCE78 /* ColorUtils.swift in Sources */,
 				3AF24F0B2C0E135A0090E833 /* BleDataConver.swift in Sources */,
+				E57D0C362C10006F00BCCE78 /* FCHandleView.swift in Sources */,
 				3AF24F0D2C0E16BB0090E833 /* BlueToothHelper+Extension.swift in Sources */,
 				E565E2D32C0DA90A00E76B86 /* CYConstants.swift in Sources */,
 				E537F0CB2C0D53EA006BFFBD /* RootViewController.swift in Sources */,
 				E565E2D02C0DA50800E76B86 /* ScanListViewController.swift in Sources */,
+				E57D0C322C10000800BCCE78 /* HandleViewController.swift in Sources */,
 				3AF24F0F2C0E17720090E833 /* HandleProtocal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
