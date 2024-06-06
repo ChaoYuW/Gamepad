@@ -10,6 +10,8 @@
 		3AF24F0B2C0E135A0090E833 /* BleDataConver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF24F0A2C0E135A0090E833 /* BleDataConver.swift */; };
 		3AF24F0D2C0E16BB0090E833 /* BlueToothHelper+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF24F0C2C0E16BB0090E833 /* BlueToothHelper+Extension.swift */; };
 		3AF24F0F2C0E17720090E833 /* HandleProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF24F0E2C0E17720090E833 /* HandleProtocal.swift */; };
+		E52CDE1A2C11B1D00023AC3B /* GBAHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52CDE192C11B1D00023AC3B /* GBAHandleView.swift */; };
+		E52CDE1C2C11B6870023AC3B /* MovingPingHandleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52CDE1B2C11B6870023AC3B /* MovingPingHandleItem.swift */; };
 		E537F0B52C0D4F52006BFFBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537F0B42C0D4F52006BFFBD /* AppDelegate.swift */; };
 		E537F0BE2C0D4F55006BFFBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E537F0BD2C0D4F55006BFFBD /* Assets.xcassets */; };
 		E537F0C12C0D4F55006BFFBD /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E537F0C02C0D4F55006BFFBD /* Base */; };
@@ -30,6 +32,8 @@
 		3AF24F0A2C0E135A0090E833 /* BleDataConver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleDataConver.swift; sourceTree = "<group>"; };
 		3AF24F0C2C0E16BB0090E833 /* BlueToothHelper+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlueToothHelper+Extension.swift"; sourceTree = "<group>"; };
 		3AF24F0E2C0E17720090E833 /* HandleProtocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleProtocal.swift; sourceTree = "<group>"; };
+		E52CDE192C11B1D00023AC3B /* GBAHandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBAHandleView.swift; sourceTree = "<group>"; };
+		E52CDE1B2C11B6870023AC3B /* MovingPingHandleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingPingHandleItem.swift; sourceTree = "<group>"; };
 		E537F0B12C0D4F52006BFFBD /* Gamepad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gamepad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E537F0B42C0D4F52006BFFBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E537F0BD2C0D4F55006BFFBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -140,7 +144,9 @@
 			isa = PBXGroup;
 			children = (
 				E57D0C352C10006F00BCCE78 /* FCHandleView.swift */,
+				E52CDE192C11B1D00023AC3B /* GBAHandleView.swift */,
 				E57D0C372C102E7200BCCE78 /* HandleItem.swift */,
+				E52CDE1B2C11B6870023AC3B /* MovingPingHandleItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -233,6 +239,8 @@
 				E57D0C362C10006F00BCCE78 /* FCHandleView.swift in Sources */,
 				3AF24F0D2C0E16BB0090E833 /* BlueToothHelper+Extension.swift in Sources */,
 				E565E2D32C0DA90A00E76B86 /* CYConstants.swift in Sources */,
+				E52CDE1C2C11B6870023AC3B /* MovingPingHandleItem.swift in Sources */,
+				E52CDE1A2C11B1D00023AC3B /* GBAHandleView.swift in Sources */,
 				E537F0CB2C0D53EA006BFFBD /* RootViewController.swift in Sources */,
 				E565E2D02C0DA50800E76B86 /* ScanListViewController.swift in Sources */,
 				E57D0C322C10000800BCCE78 /* HandleViewController.swift in Sources */,

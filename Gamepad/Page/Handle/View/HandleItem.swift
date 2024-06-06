@@ -17,6 +17,15 @@ class HandleItem: UIView {
     var itemLayers: NSMutableArray = []
     
     
+//    var arrow : UILabel {
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+//        label.text = ">"
+//        label.textColor = UIColor.white
+//        return label
+//    }
+    
+    
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -72,97 +81,93 @@ class HandleItem: UIView {
     }
     
    func topItem(){
-       let centerX = self.centerX
-       let centerY = self.centerY
-       let width = self.width*0.5
        
-       let startAngle:CGFloat = 225.0*Double.pi/180.0
-       let endAngle:CGFloat = 315.0*Double.pi/180.0
-       
-       let layer = CAShapeLayer()
-       layer.lineWidth = 1
-       layer.strokeColor = ColorUtils.hexStringToUIColor(hex: "#7C7C7C").cgColor
-       layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032").cgColor
-    
-       let path = UIBezierPath()
-       path.move(to: CGPointMake(centerX, centerY))
-       path.addArc(withCenter: CGPointMake(centerX, centerY), radius: width, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-       path.close()
-       layer.path = path.cgPath
-       self.layer.addSublayer(layer)
-       
-       self.itemLayers.add(layer)
-       
-       
+       self.drawItem(startAngle: 225.0, endAngle: 315.0,centerAngle: 270.0)
        
     }
     func rightItem(){
-        let centerX = self.centerX
-        let centerY = self.centerY
-        let width = self.width*0.5
         
-        let startAngle:CGFloat = 315.0*Double.pi/180.0
-        let endAngle:CGFloat = 45.0*Double.pi/180.0
+        self.drawItem(startAngle: 315.0, endAngle: 45,centerAngle: 0.0)
         
-        let layer = CAShapeLayer()
-        layer.lineWidth = 1
-        layer.strokeColor = ColorUtils.hexStringToUIColor(hex: "#7C7C7C").cgColor
-        layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032").cgColor
-//        layer.fillColor = UIColor.white.cgColor
-        let path = UIBezierPath()
-        path.move(to: CGPointMake(centerX, centerY))
-        path.addArc(withCenter: CGPointMake(centerX, centerY), radius: width, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        path.close()
-        layer.path = path.cgPath
-        self.layer.addSublayer(layer)
-        
-        self.itemLayers.add(layer)
      }
     func bottomItem(){
-        let centerX = self.centerX
-        let centerY = self.centerY
-        let width = self.width*0.5
-        
-        let startAngle:CGFloat = 45.0*Double.pi/180.0
-        let endAngle:CGFloat = 135.0*Double.pi/180.0
-        
-        let layer = CAShapeLayer()
-        layer.lineWidth = 1
-        layer.strokeColor = ColorUtils.hexStringToUIColor(hex: "#7C7C7C").cgColor
-        layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032").cgColor
-//        layer.fillColor = UIColor.white.cgColor
-        let path = UIBezierPath()
-        path.move(to: CGPointMake(centerX, centerY))
-        path.addArc(withCenter: CGPointMake(centerX, centerY), radius: width, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        path.close()
-        layer.path = path.cgPath
-        self.layer.addSublayer(layer)
-        
-        self.itemLayers.add(layer)
+        self.drawItem(startAngle: 45.0, endAngle: 135.0,centerAngle: 90.0)
      }
     func leftItem(){
+        
+        self.drawItem(startAngle: 135.0, endAngle: 225.0,centerAngle: 180.0)
+     }
+    
+    
+    
+    func drawItem(startAngle:CGFloat,endAngle:CGFloat,centerAngle:CGFloat) {
         let centerX = self.centerX
         let centerY = self.centerY
         let width = self.width*0.5
         
-        let startAngle:CGFloat = 135.0*Double.pi/180.0
-        let endAngle:CGFloat = 225.0*Double.pi/180.0
+        let startAngle:CGFloat = startAngle*Double.pi/180.0
+        let endAngle:CGFloat = endAngle*Double.pi/180.0
+//        let centerAngle:CGFloat = (startAngle+endAngle)*Double.pi/180.0
         
         let layer = CAShapeLayer()
-        layer.lineWidth = 1
+        layer.lineWidth = 2
         layer.strokeColor = ColorUtils.hexStringToUIColor(hex: "#7C7C7C").cgColor
         layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032").cgColor
-//        layer.fillColor = UIColor.white.cgColor
+        let startPoint = self.getPoint(center: CGPointMake(centerX, centerY), angle: startAngle, radius: width)
         let path = UIBezierPath()
-        path.move(to: CGPointMake(centerX, centerY))
+        path.move(to: startPoint)
         path.addArc(withCenter: CGPointMake(centerX, centerY), radius: width, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        path.addArc(withCenter: CGPointMake(centerX, centerY), radius: width*0.4, startAngle: endAngle, endAngle: startAngle, clockwise: false)
         path.close()
         layer.path = path.cgPath
         self.layer.addSublayer(layer)
+    
+        
+        let arrow = self.getArrow()
+        arrow.center = self.getPoint(center: CGPointMake(centerX, centerY), angle: centerAngle*Double.pi/180.0, radius: width*0.7)
+        arrow.transform = CGAffineTransformMakeRotation(centerAngle*Double.pi/180.0)
+        self.addSubview(arrow)
+        
+//        let arrowLayer = CAShapeLayer()
+//        arrowLayer.lineWidth = 1
+//        arrowLayer.strokeColor = UIColor.orange.cgColor
+//        arrowLayer.fillColor = UIColor.orange.cgColor
+//        let centerPoint = self.getPoint(center: CGPointMake(centerX, centerY), angle: centerAngle*Double.pi/180.0, radius: width*0.7)
+//        let arrow = UIBezierPath()
+//        arrow.move(to: CGPoint(x: centerPoint.x - 5.0, y: centerPoint.y + 5.0))
+//        arrow.addLine(to: centerPoint)
+//        arrow.addLine(to: CGPoint(x: centerPoint.x - 5.0, y: centerPoint.y - 5.0))
+//        arrow.close()
+//        arrowLayer.path = arrow.cgPath
+//        self.layer.addSublayer(arrowLayer)
+        
         
         self.itemLayers.add(layer)
         
-     }
+    }
+//    func leftItem(){
+//        let centerX = self.centerX
+//        let centerY = self.centerY
+//        let width = self.width*0.5
+//        
+//        let startAngle:CGFloat = 135.0*Double.pi/180.0
+//        let endAngle:CGFloat = 225.0*Double.pi/180.0
+//        
+//        let layer = CAShapeLayer()
+//        layer.lineWidth = 1
+//        layer.strokeColor = ColorUtils.hexStringToUIColor(hex: "#7C7C7C").cgColor
+//        layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032").cgColor
+////        layer.fillColor = UIColor.white.cgColor
+//        let path = UIBezierPath()
+//        path.move(to: CGPointMake(centerX, centerY))
+//        path.addArc(withCenter: CGPointMake(centerX, centerY), radius: width, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+//        path.close()
+//        layer.path = path.cgPath
+//        self.layer.addSublayer(layer)
+//        
+//        self.itemLayers.add(layer)
+//        
+//     }
 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -186,6 +191,17 @@ class HandleItem: UIView {
         for item in self.itemLayers{
             let layer:CAShapeLayer = item as! CAShapeLayer
             layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032").cgColor
+        }
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let point = touches.first!.location(in: self)
+        for item in self.itemLayers{
+            let layer:CAShapeLayer = item as! CAShapeLayer
+            if(layer.path != nil && layer.path!.contains(point)){
+                layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#0383FF").cgColor
+            }else{
+                layer.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032").cgColor
+            }
         }
     }
     
@@ -213,4 +229,15 @@ class HandleItem: UIView {
         let y = center.y + sin(angle) * radius
         return CGPoint(x: x, y: y)
     }
+    
+    func getArrow() -> UILabel{
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        label.text = "➩"
+        label.textColor = UIColor.white
+        label.font = UIFont.boldSystemFont(ofSize:20)
+//        label.backgroundColor = UIColor.green
+        label.textAlignment  = NSTextAlignment.center
+        return label
+    }
+    
 }

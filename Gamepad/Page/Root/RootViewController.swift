@@ -33,7 +33,7 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = .orange
+        self.view.backgroundColor = .white
         
         self.view.addSubview(self.myButton)
         self.myButton.snp.makeConstraints { make in

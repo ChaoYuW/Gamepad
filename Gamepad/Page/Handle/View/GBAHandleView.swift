@@ -1,16 +1,14 @@
 //
-//  FCHandleView.swift
+//  GBAHandleView.swift
 //  Gamepad
 //
-//  Created by chao on 2024/6/5.
+//  Created by chao on 2024/6/6.
 //
 
 import UIKit
 
-class FCHandleView: UIView {
-    
+class GBAHandleView: UIView {
 
-    
     lazy var handleItem: HandleItem = {
         let view = HandleItem(frame: CGRect(x: 400, y: 300, width: 200, height: 200))
         return view
@@ -136,4 +134,5 @@ class FCHandleView: UIView {
         let button = self.getButton(title: title, font: font)
         return button
     }
+
 }
