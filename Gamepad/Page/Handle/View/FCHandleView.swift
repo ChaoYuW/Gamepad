@@ -16,29 +16,24 @@ class FCHandleView: UIView {
         return view
     }()
     
-    
-    
-    lazy var backButton: UIButton = {
-        let button = self.getButton(title: "BACK",font: UIFont.systemFont(ofSize: 15.0))
-        button.addTarget(self, action: #selector(backClicked), for: .touchUpInside)
+    lazy var backButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "BACK", font: UIFont.systemFont(ofSize: 15.0))
         return button
     }()
-    lazy var startButton: UIButton = {
-        let button = self.getButton(title: "START",font: UIFont.systemFont(ofSize: 15.0))
+    lazy var startButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "START", font: UIFont.systemFont(ofSize: 15.0))
         return button
     }()
-    lazy var aButton: UIButton = {
-        let button = self.getABButton(title: "A",font: UIFont.boldSystemFont(ofSize: 36))
-        button.addTarget(self, action: #selector(aClicked), for: .touchUpInside)
+    lazy var aButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "A", font: UIFont.boldSystemFont(ofSize: 36))
+        button.vibrate = true
         return button
     }()
-    lazy var bButton: UIButton = {
-        let button = self.getABButton(title: "B",font: UIFont.boldSystemFont(ofSize: 36))
-        button.addTarget(self, action: #selector(bClicked), for: .touchUpInside)
+    lazy var bButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "B", font: UIFont.boldSystemFont(ofSize: 36))
+        button.vibrate = true
         return button
     }()
-    
-    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -78,7 +73,8 @@ class FCHandleView: UIView {
             make.height.equalTo(60)
         }
         self.startButton.snp.makeConstraints { make in
-            make.top.equalTo(self.backButton.snp_topMargin)
+//            make.top.equalTo(self.backButton.snp_topMargin)
+            make.centerY.equalTo(self.backButton.snp_centerYWithinMargins)
             make.left.equalTo(self.backButton.snp_rightMargin).offset(48)
             make.width.equalTo(60)
             make.height.equalTo(60)
@@ -108,32 +104,10 @@ class FCHandleView: UIView {
         
     }
     @objc func aClicked() {
-        self.aButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#0383FF")
-        self.bButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
     }
     @objc func bClicked() {
-        self.bButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#0383FF")
-        self.aButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
+
     }
     
-    func getButton(title:String,font:UIFont) -> UIButton{
-        let button = UIButton(type: .custom)
-        button.setTitle(title, for: .normal)
-        button.titleLabel?.font = font
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.cornerRadius = 30
-        button.layer.masksToBounds = true
-        button.isHighlighted = true
-        button.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
-        
-//        let normalBg = UIView()
-//        normalBg.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
-        
-        return button
-    }
     
-    func getABButton(title:String,font:UIFont) ->UIButton{
-        let button = self.getButton(title: title, font: font)
-        return button
-    }
 }

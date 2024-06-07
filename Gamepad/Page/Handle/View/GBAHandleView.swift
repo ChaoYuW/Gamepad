@@ -7,32 +7,39 @@
 
 import UIKit
 
-class GBAHandleView: UIView {
+class GBAHandleView: UIView ,JDPaddleVectorDelegate{
 
-    lazy var handleItem: HandleItem = {
-        let view = HandleItem(frame: CGRect(x: 400, y: 300, width: 200, height: 200))
+    lazy var handleItem: UIView = {
+        let view = UIView(frame: CGRect(x: 400, y: 300, width: 200, height: 200))
         return view
     }()
     
-    
-    
-    lazy var backButton: UIButton = {
-        let button = self.getButton(title: "BACK",font: UIFont.systemFont(ofSize: 15.0))
-        button.addTarget(self, action: #selector(backClicked), for: .touchUpInside)
+    lazy var backButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "BACK", font: UIFont.systemFont(ofSize: 15.0))
         return button
     }()
-    lazy var startButton: UIButton = {
-        let button = self.getButton(title: "START",font: UIFont.systemFont(ofSize: 15.0))
+    lazy var startButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "START", font: UIFont.systemFont(ofSize: 15.0))
         return button
     }()
-    lazy var aButton: UIButton = {
-        let button = self.getABButton(title: "A",font: UIFont.boldSystemFont(ofSize: 36))
-        button.addTarget(self, action: #selector(aClicked), for: .touchUpInside)
+    lazy var aButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "A", font: UIFont.boldSystemFont(ofSize: 36))
+        button.vibrate = true
         return button
     }()
-    lazy var bButton: UIButton = {
-        let button = self.getABButton(title: "B",font: UIFont.boldSystemFont(ofSize: 36))
-        button.addTarget(self, action: #selector(bClicked), for: .touchUpInside)
+    lazy var bButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "B", font: UIFont.boldSystemFont(ofSize: 36))
+        button.vibrate = true
+        return button
+    }()
+    lazy var xButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "X", font: UIFont.boldSystemFont(ofSize: 36))
+        button.vibrate = true
+        return button
+    }()
+    lazy var yButton: ControlButton = {
+        let button = ControlButton.init(frame: CGRectZero, title: "Y", font: UIFont.boldSystemFont(ofSize: 36))
+        button.vibrate = true
         return button
     }()
     
@@ -64,8 +71,12 @@ class GBAHandleView: UIView {
         
         self.addSubview(self.aButton)
         self.addSubview(self.bButton)
+        self.addSubview(self.xButton)
+        self.addSubview(self.yButton)
         
         self.addSubview(self.handleItem)
+        let paddle = MovingPingHandleItem(forUIView: self.handleItem, size: self.handleItem.frame.size)
+//        paddle.delegate = self
     }
     func addLayout(){
         
@@ -76,7 +87,8 @@ class GBAHandleView: UIView {
             make.height.equalTo(60)
         }
         self.startButton.snp.makeConstraints { make in
-            make.top.equalTo(self.backButton.snp_topMargin)
+//            make.top.equalTo(self.backButton.snp_topMargin)
+            make.centerY.equalTo(self.backButton.snp_centerYWithinMargins)
             make.left.equalTo(self.backButton.snp_rightMargin).offset(48)
             make.width.equalTo(60)
             make.height.equalTo(60)
@@ -88,13 +100,25 @@ class GBAHandleView: UIView {
             make.width.equalTo(60)
             make.height.equalTo(60)
         }
+        
         self.aButton.snp.makeConstraints { make in
-            make.right.equalTo(self.bButton.snp_leftMargin).offset(-60)
-            make.centerY.equalTo(self.bButton.snp_centerYWithinMargins)
+            make.top.equalTo(self.bButton.snp_bottomMargin)
+            make.right.equalTo(self.bButton.snp_leftMargin)
             make.width.equalTo(60)
             make.height.equalTo(60)
         }
-        
+        self.xButton.snp.makeConstraints { make in
+            make.right.equalTo(self.aButton.snp_leftMargin)
+            make.centerY.equalTo(self.handleItem.snp_centerYWithinMargins)
+            make.width.equalTo(60)
+            make.height.equalTo(60)
+        }
+        self.yButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.bButton.snp_topMargin)
+            make.centerX.equalTo(self.aButton.snp_centerXWithinMargins)
+            make.width.equalTo(60)
+            make.height.equalTo(60)
+        }
         self.handleItem.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(91)
             make.bottom.equalToSuperview().offset(-35)
@@ -106,33 +130,15 @@ class GBAHandleView: UIView {
         
     }
     @objc func aClicked() {
-        self.aButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#0383FF")
-        self.bButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
     }
     @objc func bClicked() {
-        self.bButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#0383FF")
-        self.aButton.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
-    }
-    
-    func getButton(title:String,font:UIFont) -> UIButton{
-        let button = UIButton(type: .custom)
-        button.setTitle(title, for: .normal)
-        button.titleLabel?.font = font
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.cornerRadius = 30
-        button.layer.masksToBounds = true
-        button.isHighlighted = true
-        button.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
-        
-//        let normalBg = UIView()
-//        normalBg.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#303032")
-        
-        return button
-    }
-    
-    func getABButton(title:String,font:UIFont) ->UIButton{
-        let button = self.getButton(title: title, font: font)
-        return button
-    }
 
+    }
+    
+//    delegete
+    func getVector(vector:CGVector)
+    {
+//        xLabel.text = "x:\(vector.dx)"
+//        yLabel.text = "y:\(vector.dy)"
+    }
 }

@@ -17,7 +17,7 @@ class HandleViewController: UIViewController {
     }()
     
     lazy var gbaHandleView :GBAHandleView = {
-        let view = GBAHandleView()
+        let view = GBAHandleView(frame: self.view.frame)
         return view
     }()
     
@@ -32,6 +32,7 @@ class HandleViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(handleSelect), for: .touchUpInside)
         button.backgroundColor = ColorUtils.hexStringToUIColor(hex: "#7C7C7C")
         return button
     }()
@@ -60,6 +61,7 @@ class HandleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         self.initUI()
         
@@ -112,4 +114,28 @@ class HandleViewController: UIViewController {
     }
     
 
+   @objc func handleSelect(){
+       
+       
+       let alertController = UIAlertController(title: "手柄选择", message: nil, preferredStyle: .actionSheet)
+       
+       let action1 = UIAlertAction(title: "FC手柄", style: .default) { (acction) in
+           self.gbaHandleView.isHidden = true
+           self.fcHandleView.isHidden = false
+       }
+       let action2 = UIAlertAction(title: "GBA手柄", style: .default) { (acction) in
+           self.gbaHandleView.isHidden = false
+           self.fcHandleView.isHidden = true
+       }
+//       let action3 = UIAlertAction(title: "街机手柄", style: .default) { (acction) in
+//           
+//       }
+       alertController.addAction(action1)
+       alertController.addAction(action2)
+//       alertController.addAction(action3)
+       
+       if let rootController = UIApplication.shared.windows.first(where: { $0.isKeyWindow }){
+           present(alertController, animated: true)
+       }
+   }
 }

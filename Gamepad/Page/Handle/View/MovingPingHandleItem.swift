@@ -33,7 +33,7 @@ class MovingPingHandleItem
         paddle = JDPaddle(size: size)
     
         let scene:SKScene = SKScene(size: size)
-        scene.backgroundColor = UIColor.white
+        scene.backgroundColor = UIColor.black
         scene.isUserInteractionEnabled = true
         scene.addChild(paddle)
         rootskview?.presentScene(scene)
@@ -75,12 +75,17 @@ class JDPaddle:SKSpriteNode
    
     init(size:CGSize) {
         
-        let paddleSize:CGSize = CGSize(width: size.height * 0.7 , height: size.height * 0.7)
+        let paddleSize:CGSize = CGSize(width: size.height * 0.75 , height: size.height * 0.75)
         MovingPing = SKShapeNode(circleOfRadius: paddleSize.width * 0.18)
-        MovingPing?.fillColor = UIColor.black
+        MovingPing?.fillColor = ColorUtils.hexStringToUIColor(hex: "#0383FF")
+        MovingPing?.lineWidth = 2
+        
         PaddleBorder = SKShapeNode(circleOfRadius: paddleSize.width * 0.5 )
-        PaddleBorder?.fillColor = UIColor.clear
-        PaddleBorder?.strokeColor = UIColor.black
+        
+        //大圆
+        PaddleBorder?.fillColor = ColorUtils.hexStringToUIColor(hex: "#303032")
+        PaddleBorder?.lineWidth = 2
+        PaddleBorder?.strokeColor = ColorUtils.hexStringToUIColor(hex: "#7C7C7C")
         super.init(texture: nil, color: UIColor.clear, size: paddleSize)
         self.zPosition = 1
         self.isUserInteractionEnabled = true

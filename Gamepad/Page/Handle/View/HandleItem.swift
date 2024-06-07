@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import AudioToolbox
 
 class HandleItem: UIView {
 
@@ -16,16 +17,7 @@ class HandleItem: UIView {
     var height = 168.0
     var itemLayers: NSMutableArray = []
     
-    
-//    var arrow : UILabel {
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//        label.text = ">"
-//        label.textColor = UIColor.white
-//        return label
-//    }
-    
-    
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -176,6 +168,8 @@ class HandleItem: UIView {
         
 //        let layer = self.getCurrentSelectedOneTouch(point: point)
 //        layer?.fillColor = UIColor.white.cgColor
+        
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         for item in self.itemLayers{
             let layer:CAShapeLayer = item as! CAShapeLayer
