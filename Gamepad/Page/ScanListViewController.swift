@@ -20,6 +20,7 @@ class ScanListViewController: UIViewController {
         edgesForExtendedLayout = .top
         setUI()
         setData()
+        bleHelper.startScan()
     }
 
     func setUI() {
@@ -66,7 +67,9 @@ extension ScanListViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
-        cell.textLabel?.text = pArray[indexPath.row].name ?? ""
+        let p = pArray[indexPath.row]
+        cell.textLabel?.text = p.name  ?? ""
+        cell.detailTextLabel?.text = p.name
         return cell
     }
     

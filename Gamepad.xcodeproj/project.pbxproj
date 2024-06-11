@@ -25,6 +25,7 @@
 		E57D0C382C102E7200BCCE78 /* HandleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D0C372C102E7200BCCE78 /* HandleItem.swift */; };
 		E57D0C3A2C10341600BCCE78 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57D0C392C10341600BCCE78 /* ColorUtils.swift */; };
 		E5BB7E7E2C12A2AD006DD6FC /* ControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB7E7D2C12A2AD006DD6FC /* ControlButton.swift */; };
+		E5E8E6612C17F4CB0050E707 /* GamePadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8E6602C17F4CB0050E707 /* GamePadState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		E57D0C372C102E7200BCCE78 /* HandleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleItem.swift; sourceTree = "<group>"; };
 		E57D0C392C10341600BCCE78 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		E5BB7E7D2C12A2AD006DD6FC /* ControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButton.swift; sourceTree = "<group>"; };
+		E5E8E6602C17F4CB0050E707 /* GamePadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePadState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +108,6 @@
 		E537F0CC2C0D55AF006BFFBD /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				E565E2CD2C0DA4BD00E76B86 /* New Group */,
 				E537F0CD2C0D5602006BFFBD /* Root */,
 				E565E2CE2C0DA50800E76B86 /* ScanListViewController.swift */,
 				E57D0C332C10001300BCCE78 /* Handle */,
@@ -131,15 +132,9 @@
 				E565E2D22C0DA90A00E76B86 /* CYConstants.swift */,
 				3AF24F0E2C0E17720090E833 /* HandleProtocal.swift */,
 				E57D0C392C10341600BCCE78 /* ColorUtils.swift */,
+				E5E8E6602C17F4CB0050E707 /* GamePadState.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		E565E2CD2C0DA4BD00E76B86 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		E57D0C332C10001300BCCE78 /* Handle */ = {
@@ -299,6 +294,7 @@
 				E537F0CB2C0D53EA006BFFBD /* RootViewController.swift in Sources */,
 				E565E2D02C0DA50800E76B86 /* ScanListViewController.swift in Sources */,
 				E5BB7E7E2C12A2AD006DD6FC /* ControlButton.swift in Sources */,
+				E5E8E6612C17F4CB0050E707 /* GamePadState.swift in Sources */,
 				E57D0C322C10000800BCCE78 /* HandleViewController.swift in Sources */,
 				3AF24F0F2C0E17720090E833 /* HandleProtocal.swift in Sources */,
 			);
@@ -443,6 +439,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -477,6 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

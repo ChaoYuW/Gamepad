@@ -15,7 +15,7 @@ class RootViewController: UIViewController {
     // 懒加载的UIButton
     lazy var myButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("点击我", for: .normal)
+        button.setTitle("蓝牙列表", for: .normal)
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         // 设置button的其他属性
         return button

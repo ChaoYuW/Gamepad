@@ -8,6 +8,9 @@
 import UIKit
 
 class GBAHandleView: UIView ,JDPaddleVectorDelegate{
+    
+    
+    private var gamePadState:GamePadState = GamePadState()
 
     lazy var handleItem: UIView = {
         let view = UIView(frame: CGRect(x: 400, y: 300, width: 200, height: 200))
@@ -16,29 +19,47 @@ class GBAHandleView: UIView ,JDPaddleVectorDelegate{
     
     lazy var backButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "BACK", font: UIFont.systemFont(ofSize: 15.0))
+        button.registerActionHandler {  [weak self] tap in
+            self?.gamePadState.back = tap
+        }
         return button
     }()
     lazy var startButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "START", font: UIFont.systemFont(ofSize: 15.0))
+        button.registerActionHandler {  [weak self] tap in
+            self?.gamePadState.start = tap
+        }
         return button
     }()
     lazy var aButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "A", font: UIFont.boldSystemFont(ofSize: 36))
+        button.registerActionHandler {  [weak self] tap in
+            self?.gamePadState.a = tap
+        }
         button.vibrate = true
         return button
     }()
     lazy var bButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "B", font: UIFont.boldSystemFont(ofSize: 36))
+        button.registerActionHandler {  [weak self] tap in
+            self?.gamePadState.b = tap
+        }
         button.vibrate = true
         return button
     }()
     lazy var xButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "X", font: UIFont.boldSystemFont(ofSize: 36))
+        button.registerActionHandler {  [weak self] tap in
+            self?.gamePadState.x = tap
+        }
         button.vibrate = true
         return button
     }()
     lazy var yButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "Y", font: UIFont.boldSystemFont(ofSize: 36))
+        button.registerActionHandler {  [weak self] tap in
+            self?.gamePadState.y = tap
+        }
         button.vibrate = true
         return button
     }()
@@ -126,13 +147,8 @@ class GBAHandleView: UIView ,JDPaddleVectorDelegate{
         }
     }
     
-    @objc func backClicked() {
+    func send(){
         
-    }
-    @objc func aClicked() {
-    }
-    @objc func bClicked() {
-
     }
     
 //    delegete

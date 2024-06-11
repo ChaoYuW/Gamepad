@@ -8,6 +8,19 @@
 import UIKit
 import AudioToolbox
 
+
+public enum ControlType {
+    case back
+    case start
+    case a
+    case b
+    case x
+    case y
+}
+
+
+typealias ButtonActionHandler<Bool> = ((Bool) -> Void)
+
 class ControlButton: UIView {
 
     
@@ -17,7 +30,9 @@ class ControlButton: UIView {
     var selectBackgroundColor :UIColor = ColorUtils.hexStringToUIColor(hex: "#0383FF")
     
 //    var tapedAction = (tag) -> 
-    var releasedAction: Selector?
+    var buttonActionHandler: ButtonActionHandler<Bool>?
+    
+    public typealias LLdidSelectItemAtIndexClosure = (NSInteger) -> Void
     
     var vibrate:Bool = false
     
@@ -49,6 +64,11 @@ class ControlButton: UIView {
             selectBackgroundColor = newValue
         }
     }
+    
+    lazy var itemButton = {
+        let view = self.getButton(title: self.title, font: self.font)
+        return view
+    }()
     
     
     init(frame:CGRect,title:String){
@@ -99,25 +119,51 @@ class ControlButton: UIView {
 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.tapedClick()
+        
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.releasedClick()
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let point = touches.first!.location(in: self)
+        
+        if self.point(inside: point, with: nil){
+            self.tapedClick()
+        }else{
+            self.releasedClick()
+        }
+    }
+    
+    func tapedClick(){
         self.itemButton.backgroundColor = self.selectColor
         
         if(self.vibrate){
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
-//        if(self.tapedAction != nil){
-//            self.tapedAction
-//        }
+        
+        if(self.buttonActionHandler != nil){
+            self.buttonActionHandler!(true)
+        }
+        
         
     }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func releasedClick(){
         self.itemButton.backgroundColor = self.normalColor
+        
+        if(self.buttonActionHandler != nil){
+            self.buttonActionHandler!(false)
+        }
     }
     
+    // 注册回调方法
+    func registerActionHandler(_ handler:@escaping ButtonActionHandler<Bool>){
+        self.buttonActionHandler = handler
+    }
     
-    lazy var itemButton = {
-        let view = self.getButton(title: self.title, font: self.font)
-        return view
-    }()
     
     @objc func buttonTapped() {
         self.itemButton.backgroundColor = self.selectColor
@@ -125,6 +171,7 @@ class ControlButton: UIView {
     @objc func buttonReleased() {
         self.itemButton.backgroundColor = self.normalColor
         }
+    
     
     func getButton(title:String,font:UIFont) -> UIButton{
         let button = UIButton(type: .custom)

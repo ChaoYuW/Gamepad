@@ -48,7 +48,7 @@ class BlueToothHelper: NSObject {
     
     override init() {
         super.init()
-        centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey:false])
+        centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey:true])
     }
     
     //MARK: - Public Method
@@ -82,7 +82,7 @@ class BlueToothHelper: NSObject {
         aPeArray = []
         
         bleState = .scanning
-        centralManager?.scanForPeripherals(withServices: serviceUUIDS, options: options)
+        centralManager?.scanForPeripherals(withServices: nil, options: nil)
     }
     
     ///停止扫描

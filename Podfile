@@ -11,4 +11,5 @@ target 'Gamepad' do
 #  pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git'
   pod 'SnapKit'
+  pod 'MBProgressHUD', '~> 1.2.0'
 end
