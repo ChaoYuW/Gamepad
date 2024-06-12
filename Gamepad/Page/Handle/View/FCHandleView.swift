@@ -9,7 +9,8 @@ import UIKit
 
 class FCHandleView: UIView {
     
-
+    private var gamePadState:GamePadState = GamePadState()
+    var senderHandler: SenderHandler<GamePadState>?
     
     lazy var handleItem: HandleItem = {
         let view = HandleItem(frame: CGRect(x: 400, y: 300, width: 200, height: 200))
@@ -107,6 +108,15 @@ class FCHandleView: UIView {
     }
     @objc func bClicked() {
 
+    }
+    func send(){
+        if(self.senderHandler != nil){
+            self.senderHandler!(self.gamePadState)
+        }
+    }
+    // 注册回调方法
+    func registerSenderHandler(_ handler:@escaping SenderHandler<GamePadState>){
+        self.senderHandler = handler
     }
     
     
