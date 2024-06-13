@@ -81,7 +81,10 @@ class BlueToothHelper: NSObject {
     func startScan(serviceUUIDS:[CBUUID]? = nil, options:[String: Any]? = nil) {
         aPeArray = []
         
+        // 1 判断蓝牙是否可用
+        
         bleState = .scanning
+// - 第一步 扫描外设 scanForPeripherals
         centralManager?.scanForPeripherals(withServices: nil, options: nil)
     }
     
@@ -139,7 +142,7 @@ class BlueToothHelper: NSObject {
     
 }
 
-//MARK: - Ble Delegate
+//MARK: - Ble Delegate  蓝牙中心的代理方法
 
 extension BlueToothHelper:CBCentralManagerDelegate {
     // MARK: 检查运行这个App的设备是不是支持BLE。
@@ -166,8 +169,16 @@ extension BlueToothHelper:CBCentralManagerDelegate {
         }
     }
     
+    /**
+     didDiscoverPeripheral:
+     peripheral: 扫描到的外设
+     advertisementData: 外设的广告介绍信息
+     RSSI: 外设信号强度  int类型
+     */
+    
     // 开始扫描之后会扫描到蓝牙设备，扫描到之后走到这个代理方法
     // MARK: 中心管理器扫描到了设备
+    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         guard !aPeArray.contains(peripheral), let deviceName = peripheral.name, deviceName.count > 0 else {
             return
