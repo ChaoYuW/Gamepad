@@ -8,11 +8,17 @@
 import UIKit
 
 class HandleViewController: UIViewController {
+    
+    
+    var bleHelper = BlueToothHelper.shared
 
     
     lazy var fcHandleView: FCHandleView = {
         
         let view = FCHandleView(frame: self.view.frame)
+        view.registerSenderHandler{  [weak self] tap in
+            
+        }
         return view
     }()
     
@@ -84,8 +90,6 @@ class HandleViewController: UIViewController {
         
         self.gbaHandleView.isHidden = true
         self.fcHandleView.isHidden = false
-        
-        
     }
     func addLayout(){
         

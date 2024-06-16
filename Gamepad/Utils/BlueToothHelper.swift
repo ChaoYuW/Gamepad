@@ -93,6 +93,17 @@ class BlueToothHelper: NSObject {
         centralManager?.stopScan()
     }
     
+    func sendData(data:Data){
+        //
+        let gamepadState = GamePadState()
+        gamepadState.back = true
+        
+        let report = GamePadReport()
+        report.setValue(s: gamepadState)
+        
+        
+//        peripheral.writeValue(pData, for: characteristic, type: type)
+    }
     ///发送数据包给设备
     func sendPacketWithPieces(data:Data, peripheral:CBPeripheral, characteristic:CBCharacteristic, type: CBCharacteristicWriteType = CBCharacteristicWriteType.withResponse) {
         
@@ -178,7 +189,6 @@ extension BlueToothHelper:CBCentralManagerDelegate {
     
     // 开始扫描之后会扫描到蓝牙设备，扫描到之后走到这个代理方法
     // MARK: 中心管理器扫描到了设备
-    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         guard !aPeArray.contains(peripheral), let deviceName = peripheral.name, deviceName.count > 0 else {
             return
@@ -199,7 +209,7 @@ extension BlueToothHelper:CBCentralManagerDelegate {
 //            centralManager?.connect(targetPeripheral!, options: nil)
 //        }
     }
-    
+    //与一个外设成功的建立了连接时调用
     // MARK: 连接外设成功，开始发现服务
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("\(#function)连接外设成功。\ncentral:\(central),peripheral:\(peripheral)\n")
@@ -208,7 +218,7 @@ extension BlueToothHelper:CBCentralManagerDelegate {
         // 开始发现服务
         peripheral.discoverServices(nil)
     }
-    
+    //与一个外设建立连接失败时调用
     // MARK: 连接外设失败
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("\(#function)连接外设失败\n\(String(describing: peripheral.name))连接失败：\(String(describing: error))\n")
@@ -216,7 +226,7 @@ extension BlueToothHelper:CBCentralManagerDelegate {
         
         
     }
-    
+    ////在与外设的现有连接断开时调用
     // MARK: 连接丢失
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("\(#function)连接丢失\n外设：\(String(describing: peripheral.name))\n错误：\(String(describing: error))\n")
@@ -226,6 +236,8 @@ extension BlueToothHelper:CBCentralManagerDelegate {
 }
 
 extension BlueToothHelper: CBPeripheralDelegate {
+    
+    ////当你发现外设的可用服务时调用
     //MARK: 匹配对应服务UUID
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let error = error  {
