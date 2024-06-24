@@ -42,7 +42,7 @@ class BlueToothHelper: NSObject {
     ///扫描到的所有设备
     var aPeArray:[CBPeripheral] = []
     //当前连接的设备
-    var pe:CBPeripheral?
+    var peripheral:CBPeripheral?
     var writeCh: CBCharacteristic?
     var notifyCh: CBCharacteristic?
     
@@ -55,7 +55,7 @@ class BlueToothHelper: NSObject {
     
     ///保存当前选中的设备
     func setSelectedPeripherals(peripheral:CBPeripheral) {
-        pe = peripheral
+        self.peripheral = peripheral
     }
     
     //主动获取搜索到的peripheral列表
@@ -64,25 +64,11 @@ class BlueToothHelper: NSObject {
     }
     
     //MARK: - Private Method
-    
-    //连接指定的设备
-    func doConnect(peripheral:CBPeripheral) {
-        bleState = .connecting
-        centralManager?.connect(peripheral, options: nil)
-        peripheral.delegate = self
-    }
-    
-    ///断开连接
-    func disconnect(peripheral: CBPeripheral) {
-        centralManager?.cancelPeripheralConnection(peripheral)
-    }
-    
     ///开始扫描
     func startScan(serviceUUIDS:[CBUUID]? = nil, options:[String: Any]? = nil) {
         aPeArray = []
         
         // 1 判断蓝牙是否可用
-        
         bleState = .scanning
 // - 第一步 扫描外设 scanForPeripherals
         centralManager?.scanForPeripherals(withServices: nil, options: nil)
@@ -92,6 +78,17 @@ class BlueToothHelper: NSObject {
     func stopScan() {
         centralManager?.stopScan()
     }
+    //连接指定的设备
+    func doConnect(peripheral:CBPeripheral) {
+        bleState = .connecting
+        centralManager?.connect(peripheral, options: nil)
+        peripheral.delegate = self
+    }
+    ///断开连接
+    func disconnect(peripheral: CBPeripheral) {
+        centralManager?.cancelPeripheralConnection(peripheral)
+    }
+
     
     func sendData(data:GamePadState){
         //
@@ -196,7 +193,10 @@ extension BlueToothHelper:CBCentralManagerDelegate {
             return
         }
         
-        aPeArray.append(peripheral)
+        if(aPeArray.contains(peripheral)){
+            aPeArray.append(peripheral)
+        }
+        
         //传出去实时刷新
         if let backPeripheralsBlock = backPeripheralsBlock {
             backPeripheralsBlock(aPeArray)
@@ -216,9 +216,10 @@ extension BlueToothHelper:CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("\(#function)连接外设成功。\ncentral:\(central),peripheral:\(peripheral)\n")
         // 设置代理
-        peripheral.delegate = self
+        self.peripheral = peripheral;
+        self.peripheral?.delegate = self
         // 开始发现服务
-        peripheral.discoverServices(nil)
+        self.peripheral?.discoverServices(nil)
     }
     //与一个外设建立连接失败时调用
     // MARK: 连接外设失败
@@ -231,8 +232,8 @@ extension BlueToothHelper:CBCentralManagerDelegate {
     ////在与外设的现有连接断开时调用
     // MARK: 连接丢失
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("\(#function)连接丢失\n外设：\(String(describing: peripheral.name))\n错误：\(String(describing: error))\n")
-        // 这里可以发通知出去告诉设备连接界面连接丢失
+        print("\(#function)连接丢失\n外设断开：\(String(describing: peripheral.name))\n错误：\(String(describing: error))\n")
+        // 这里可以发通知出去告诉设备连接界面连接丢失//在这里可以重连
         
     }
 }
@@ -249,11 +250,13 @@ extension BlueToothHelper: CBPeripheralDelegate {
             print("\(#function)搜索到服务\n设备(peripheral)：\(String(describing: peripheral.name))\n")
         }
         for service in peripheral.services ?? [] {
+            //第一个参数 寻找指定的特征 为nil表示寻找所有特征
+            //第二个参数: 寻找哪个服务的特征
             peripheral.discoverCharacteristics(nil, for: service)
         }
     }
     
-    //MARK: 服务下的特征
+    //MARK: 发现服务的特征会调用的方法
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let _ = error {
             print("\(#function)发现特征\n设备(peripheral)：\(String(describing: peripheral.name))\n服务(service)：\(String(describing: service))\n扫描特征(Characteristics)失败：\(String(describing: error))\n")
@@ -264,7 +267,7 @@ extension BlueToothHelper: CBPeripheralDelegate {
         
         for characteristic in service.characteristics ?? [] {
             if characteristic.uuid.uuidString.lowercased().isEqual(BLE_WRITE_UUID) {
-                pe = peripheral
+                self.peripheral = peripheral
                 writeCh = characteristic
                 
                 if let block = backConnectedBlock {
