@@ -10,7 +10,7 @@ import UIKit
 class GamePadReport{
     
     
-    var gamePadData:[Int8] = []
+    var gamePadData:[Int8] = [0,0,0,0,0,0,0,0]
     
     func setValue(s : GamePadState) -> [Int8]{
         // 11 buttons: A, B, X, Y, L1, R1, L3, R3, Power, Back, Home (1 bit per button), 1 bit padding

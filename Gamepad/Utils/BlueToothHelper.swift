@@ -25,7 +25,7 @@ typealias BleConnectedBlock = (_ peripheral: CBPeripheral, _ characteristic:CBCh
 
 class BlueToothHelper: NSObject {
     private let BLE_WRITE_UUID = "xxxx"
-    private let BLE_NOTIFY_UUID = "xxxx"
+    private let BLE_NOTIFY_UUID = "11C8B310-80E4-4276-AFC0-F81590B2177F"
     
     static let shared = BlueToothHelper()
     
@@ -93,16 +93,18 @@ class BlueToothHelper: NSObject {
         centralManager?.stopScan()
     }
     
-    func sendData(data:Data){
+    func sendData(data:GamePadState){
         //
         let gamepadState = GamePadState()
         gamepadState.back = true
         
         let report = GamePadReport()
-        report.setValue(s: gamepadState)
+        report.setValue(s: data)
+        
+        let data = Data(bytes: [pData, positiony])
         
         
-//        peripheral.writeValue(pData, for: characteristic, type: type)
+        peripheral.writeValue(pData, for: notifyCh, type: .withResponse)
     }
     ///发送数据包给设备
     func sendPacketWithPieces(data:Data, peripheral:CBPeripheral, characteristic:CBCharacteristic, type: CBCharacteristicWriteType = CBCharacteristicWriteType.withResponse) {
@@ -272,6 +274,8 @@ extension BlueToothHelper: CBPeripheralDelegate {
                 //该组参数无用
                 notifyCh = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
+                
+                self.stopScan()
             }
             //此处代表连接成功
         }

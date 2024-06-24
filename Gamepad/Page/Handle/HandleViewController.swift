@@ -16,8 +16,8 @@ class HandleViewController: UIViewController {
     lazy var fcHandleView: FCHandleView = {
         
         let view = FCHandleView(frame: self.view.frame)
-        view.registerSenderHandler{  [weak self] tap in
-            
+        view.registerSenderHandler{  [weak self] gamePadState in
+            self?.senderData(data: gamePadState)
         }
         return view
     }()
@@ -117,6 +117,10 @@ class HandleViewController: UIViewController {
         }
     }
     
+    
+    func senderData(data:GamePadState){
+        BlueToothHelper.shared.sendData(data: data)
+    }
 
    @objc func handleSelect(){
        

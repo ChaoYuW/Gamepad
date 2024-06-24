@@ -19,19 +19,39 @@ class FCHandleView: UIView {
     
     lazy var backButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "BACK", font: UIFont.systemFont(ofSize: 15.0))
+        button.registerActionHandler { select in
+            
+            self.gamePadState.back = select
+            self.send()
+        }
         return button
     }()
     lazy var startButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "START", font: UIFont.systemFont(ofSize: 15.0))
+        button.registerActionHandler { select in
+            
+            self.gamePadState.start = select
+            self.send()
+        }
         return button
     }()
     lazy var aButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "A", font: UIFont.boldSystemFont(ofSize: 36))
+        button.registerActionHandler { select in
+            
+            self.gamePadState.a = select
+            self.send()
+        }
         button.vibrate = true
         return button
     }()
     lazy var bButton: ControlButton = {
         let button = ControlButton.init(frame: CGRectZero, title: "B", font: UIFont.boldSystemFont(ofSize: 36))
+        button.registerActionHandler { select in
+            
+            self.gamePadState.b = select
+            self.send()
+        }
         button.vibrate = true
         return button
     }()
@@ -113,6 +133,7 @@ class FCHandleView: UIView {
         if(self.senderHandler != nil){
             self.senderHandler!(self.gamePadState)
         }
+        
     }
     // 注册回调方法
     func registerSenderHandler(_ handler:@escaping SenderHandler<GamePadState>){
