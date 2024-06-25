@@ -98,10 +98,24 @@ class BlueToothHelper: NSObject {
         let report = GamePadReport()
         report.setValue(s: data)
         
-        let data = Data(bytes: [pData, positiony])
+        let data = Data(bytes: report.gamePadData, count: report.gamePadData.count)
         
         
-        peripheral.writeValue(pData, for: notifyCh, type: .withResponse)
+        
+        peripheral?.writeValue(data, for: self.notifyCh!, type: .withResponse)
+    }
+    
+    func intArrayToData(_ intArray: [Int8]) -> Data {
+        // 假设所有的 Int 都是 32 位（Int32）
+        let int32Array = intArray.map { Int8($0) } // 如果不是 Int32，这里可能会有问题
+
+        let buffer = UnsafeMutablePointer<Int8>.allocate(capacity: int32Array.count)
+        defer { buffer.deallocate() } // 确保释放内存
+
+        buffer.initialize(from: int32Array, count: int32Array.count)
+
+        let data = Data(bytes: buffer, count: MemoryLayout<Int32>.size * int32Array.count)
+        return data
     }
     ///发送数据包给设备
     func sendPacketWithPieces(data:Data, peripheral:CBPeripheral, characteristic:CBCharacteristic, type: CBCharacteristicWriteType = CBCharacteristicWriteType.withResponse) {
@@ -193,7 +207,7 @@ extension BlueToothHelper:CBCentralManagerDelegate {
             return
         }
         
-        if(aPeArray.contains(peripheral)){
+        if(!aPeArray.contains(peripheral)){
             aPeArray.append(peripheral)
         }
         
